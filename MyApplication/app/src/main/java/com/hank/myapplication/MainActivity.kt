@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
             mVersionCode = packageInfo.versionCode
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
+            Log.e("MainActivity", e.message)
         }
 
         text_view.setText("PackageName:"+ packageName + "\nVersionCode:" + mVersionCode + "\nVersionName:" + mVersionName);
