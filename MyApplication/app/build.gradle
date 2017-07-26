@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "com.hank.myapplication"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode appVersionCode
+        versionName appVersionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs{
+        release{
+            storeFile file("C:/Users/Hank/.android/pdmi_release.jks")
+            storePassword "123456"
+            keyAlias "pdmi"
+            keyPassword "123456"
+            v2SigningEnabled false
+        }
+        debug{
+            storeFile file("C:/Users/Hank/.android/pdmi_debug.jks")
+            storePassword "123456"
+            keyAlias "pdmi"
+            keyPassword "123456"
+            v2SigningEnabled false
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug{
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    productFlavors{
+        hank{
+            applicationIdSuffix '.hank'
+            resValue "string", "AppName", "HankFlavors"
+        }
+        huhb{
+            applicationIdSuffix '.huhb'
+            resValue "string", "AppName", "HuhbFlavors"
+
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def fileName = output.outputFile.name;
+            fileName = fileName.replace("app", "MyApplication-${variant.versionName}-${variant.versionCode}")
+            output.outputFile = new File(output.outputFile.parent, fileName)
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
+}
