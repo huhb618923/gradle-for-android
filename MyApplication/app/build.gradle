@@ -56,11 +56,20 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
+            //输出文件夹
+            def outDirectory
+            if("true".equals(IS_JENKINS)){
+                outDirectory = JENKINS_OUTPUT_DIR
+            }
+            else{
+                outDirectory = output.outputFile.parent
+            }
             def fileName = output.outputFile.name;
             fileName = fileName.replace("app", "MyApplication-${variant.versionName}-${variant.versionCode}")
-            output.outputFile = new File(output.outputFile.parent, fileName)
+            output.outputFile = new File(outDirectory, fileName)
         }
     }
+
 }
 
 dependencies {
