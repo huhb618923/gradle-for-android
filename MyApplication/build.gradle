@@ -20,7 +20,6 @@ allprojects {
     }
 
     ext {
-        appVersionName = VersionName
         def nowCal = Calendar.instance
         appVersionCode = nowCal[Calendar.YEAR] * 10000 + (nowCal[Calendar.MONTH] + 1) * 100 + nowCal[Calendar.DATE]
 

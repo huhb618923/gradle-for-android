@@ -10,7 +10,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode appVersionCode
-        versionName appVersionName
+        versionName VERSIONNAME
         aaptOptions.cruncherEnabled = false
         aaptOptions.useNewCruncher = false
     }
