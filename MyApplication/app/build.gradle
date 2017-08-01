@@ -59,7 +59,7 @@ android {
             //输出文件夹
             def outDirectory
             if("true".equals(IS_JENKINS)){
-                outDirectory = JENKINS_OUTPUT_DIR
+                outDirectory = JENKINS_OUTPUT_DIR+BUILD_TIME
             }
             else{
                 outDirectory = output.outputFile.parent
