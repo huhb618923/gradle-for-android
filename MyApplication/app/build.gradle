@@ -6,6 +6,10 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
+        def VERSION_NAME = this.properties.VERSION_NAME
+        if(!VERSION_NAME){
+            VERSION_NAME = appVersionName
+        }
         applicationId "com.hank.myapplication"
         minSdkVersion 15
         targetSdkVersion 26
@@ -15,11 +19,21 @@ android {
         aaptOptions.useNewCruncher = false
     }
     signingConfigs{
+        def STORE_FILE = this.properties.STORE_FILE
+        def STORE_PASSWORD = this.properties.STORE_PASSWORD
+        def KEY_ALIAS = this.properties.KEY_ALIAS
+        def KEY_PASSWORD = this.properties.KEY_PASSWORD
+        if(!STORE_FILE || !STORE_PASSWORD || !KEY_ALIAS || !KEY_PASSWORD){
+            STORE_FILE = "pdmi_debug.jks"
+            STORE_PASSWORD = "123456"
+            KEY_ALIAS = "pdmi"
+            KEY_PASSWORD = "123456"
+        }
         release{
-            storeFile file("C:/Users/Hank/.android/pdmi_release.jks")
-            storePassword "123456"
-            keyAlias "pdmi"
-            keyPassword "123456"
+            storeFile file(STORE_FILE)
+            storePassword STORE_PASSWORD
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
             v2SigningEnabled false
         }
         debug{
@@ -60,8 +74,8 @@ android {
             println "Project Property TEST is ${this.properties.PRO_TEST}"
             //输出文件夹
             def outDirectory
-            if("true".equals(IS_JENKINS)){
-                outDirectory = JENKINS_OUTPUT_DIR+BUILD_TIME
+            if("true".equals(this.properties.IS_JENKINS)){
+                outDirectory = this.properties.JENKINS_OUTPUT_DIR+this.properties.BUILD_TIME
             }
             else{
                 outDirectory = output.outputFile.parent
