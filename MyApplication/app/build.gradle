@@ -56,7 +56,8 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-            println "Project Property TEST is ${Project.properties.TEST}"
+            println "System Property SYS_TEST is ${System.properties.SYS_TEST}"
+            println "Project Property TEST is ${Project.properties.PRO_TEST}"
             //输出文件夹
             def outDirectory
             if("true".equals(IS_JENKINS)){
