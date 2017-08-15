@@ -19,21 +19,11 @@ android {
         aaptOptions.useNewCruncher = false
     }
     signingConfigs {
-        def STORE_FILE = this.properties.STORE_FILE
-        def STORE_PASSWORD = this.properties.STORE_PASSWORD
-        def KEY_ALIAS = this.properties.KEY_ALIAS
-        def KEY_PASSWORD = this.properties.KEY_PASSWORD
-        if (!STORE_FILE || !STORE_PASSWORD || !KEY_ALIAS || !KEY_PASSWORD) {
-            STORE_FILE = "pdmi_debug.jks"
-            STORE_PASSWORD = "123456"
-            KEY_ALIAS = "pdmi"
-            KEY_PASSWORD = "123456"
-        }
         release {
-            storeFile file(STORE_FILE)
-            storePassword STORE_PASSWORD
-            keyAlias KEY_ALIAS
-            keyPassword KEY_PASSWORD
+            storeFile file('pdmi_debug.jks')
+            storePassword '123456'
+            keyAlias 'pdmi'
+            keyPassword '123456'
             v2SigningEnabled false
         }
         debug {
@@ -70,12 +60,12 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-            println "System Property SYS_TEST is ${System.properties.SYS_TEST}"
-            println "Project Property TEST is ${this.properties.PRO_TEST}"
+         //   println "System Property SYS_TEST is ${System.properties.SYS_TEST}"
+       //     println "Project Property TEST is ${this.properties.PRO_TEST}"
             //输出文件夹
             def outDirectory
             if("true".equals(this.properties.IS_JENKINS)){
-                outDirectory = this.properties.JENKINS_OUTPUT_DIR+this.properties.BUILD_TIME
+                outDirectory = this.properties.JENKINS_OUTPUT_DIR
             }
             else{
                 outDirectory = output.outputFile.parent
